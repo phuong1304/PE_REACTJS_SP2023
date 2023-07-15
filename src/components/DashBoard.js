@@ -12,7 +12,8 @@ import { Icon } from '@mui/material';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditModal from './EditModal';
-
+import Box from '@mui/material/Box';
+import "../App.css";
 
 
 function Dashboard() {
@@ -86,13 +87,13 @@ function Dashboard() {
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell>Title</TableCell>
-                            <TableCell align="right">Description</TableCell>
-                            <TableCell align="right">Views</TableCell>
-                            <TableCell align="right">Status</TableCell>
-                            <TableCell align="right">Actractive</TableCell>
-                            <TableCell align="right">Actions</TableCell>
+                        <TableRow sx={{ bgcolor: 'lightblue' }}>
+                            <TableCell align="center" sx={{ fontWeight: '700', }}>Title</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700', }}>Description</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700', }}>Views</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700', }}>Status</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700', }}>Actractive</TableCell>
+                            <TableCell align="center" sx={{ fontWeight: '700', }}>Actions</TableCell>
 
                         </TableRow>
                     </TableHead>
@@ -102,17 +103,50 @@ function Dashboard() {
                                 key={news.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
-                                    {news.title}
+                                <TableCell component="div" scope="row"  >
+                                    <div style={{ width: 250, whiteSpace: 'nowrap' }}>
+                                        <Box
+                                            component="div"
+                                            sx={{
+                                                textOverflow: 'ellipsis',
+                                                overflow: 'hidden',
+                                                my: 2,
+                                                p: 1,
+
+                                                borderRadius: 2,
+                                                fontSize: '0.875rem',
+                                                fontWeight: '700',
+                                            }}
+                                        >
+                                            {news.title}
+                                        </Box>
+                                    </div>
                                 </TableCell>
-                                <TableCell align="right">{news.description}</TableCell>
-                                <TableCell align="right">{news.views}</TableCell>
-                                <TableCell align="right">{news.status ? 'True' : 'False'}</TableCell>
-                                <TableCell align="right">{news.actractive ? 'True' : 'False'}</TableCell>
                                 <TableCell align="right">
+                                    <div style={{ width: 300, whiteSpace: 'nowrap' }}>
+                                        <Box
+                                            component="div"
+                                            sx={{
+                                                overflow: 'auto',
+                                                my: 2,
+                                                p: 1,
+
+
+                                                fontSize: '0.875rem',
+                                                fontWeight: '700',
+                                            }}
+                                        >
+                                            {news.description}
+                                        </Box>
+                                    </div>
+                                </TableCell>
+                                <TableCell align="center" >{news.views}</TableCell>
+                                <TableCell align="center">{news.status ? 'True' : 'False'}</TableCell>
+                                <TableCell align="center">{news.actractive ? 'True' : 'False'}</TableCell>
+                                <TableCell align="center">
                                     <Link to={`/detail/${news.id}`}><Icon><RemoveRedEyeIcon /></Icon></Link>{' '}
                                     <button className='bth-edit'><EditModal newsId={news.id} />{' '}</button>
-                                    <button onClick={() => handleDeleteNews(news.id)}><Icon><DeleteIcon /></Icon></button>
+                                    <button onClick={() => handleDeleteNews(news.id)} > <Icon><DeleteIcon /></Icon> </button>
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -56,13 +56,9 @@ export default function RecipeReviewCard() {
 
     return (
         <div className='detail'>
-            <Card sx={{ maxWidth: 400 }}>
+            <Card >
                 <CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            R
-                        </Avatar>
-                    }
+
                     action={
                         <IconButton aria-label="settings">
                             <MoreVertIcon />
@@ -73,7 +69,7 @@ export default function RecipeReviewCard() {
                 />
                 <CardMedia
                     component="img"
-                    height="194"
+
                     image={products.img}
                     alt={products.title}
                 />

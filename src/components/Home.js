@@ -12,6 +12,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import "../App.css";
+
 
 function Home() {
     const Item = styled(Paper)(({ theme }) => ({
@@ -38,7 +40,7 @@ function Home() {
     }, []);
 
     return (
-        <div>
+        <div className='body'>
             <h1>Home</h1>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -51,9 +53,40 @@ function Home() {
                                     title={item.title}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {item.title}
-                                    </Typography>
+                                    <div style={{ width: 310 }}>
+                                        <Box
+                                            component="div"
+                                            // sx={{
+                                            //     textOverflow: 'ellipsis',
+                                            //     overflow: 'hidden',
+                                            //     my: 2,
+                                            //     p: 1,
+
+                                            //     borderRadius: 2,
+                                            //     fontSize: '1.3rem',
+                                            //     fontWeight: '700',
+                                            // }}
+                                            sx={{
+                                                display: 'block',
+                                                display: '-webkit-box',
+                                                maxWidth: 290,
+                                                height: 80,
+                                                my: 2,
+
+                                                fontSize: 26,
+                                                fontWeight: '700',
+                                                lineHeight: 1,
+                                                WebkitLineClamp: 3,
+                                                WebkitBoxOrient: 'vertical',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                            }}
+                                        >
+                                            {item.title}
+                                        </Box>
+                                    </div>
+
+
                                     <Typography variant="body2" color="text.secondary">
                                         {item.description}
                                     </Typography>
