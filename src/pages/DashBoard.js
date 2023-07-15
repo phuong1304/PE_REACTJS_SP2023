@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import BasicModal from './Modal';
+import BasicModal from '../components/Modal';
 import { Icon } from '@mui/material';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import "../App.css";
 
 
-function Dashboard() {
+const Dashboard = () => {
     const [newsList, setNewsList] = useState([]);
 
     // Lấy danh sách tin tức từ API hoặc nguồn dữ liệu khác

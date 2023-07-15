@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 // import Icon from '@mui/material/Icon';
-
+import { UserAuth } from './AuthConext';
 
 
 const pages = ['TopNews', 'Contact', 'Signin', 'Dashboard'];
@@ -39,6 +39,15 @@ export default function Navigation() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const { user, logOut } = UserAuth();
+    const handleSignOut = async () => {
+        try {
+            await logOut()
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <AppBar position="static">
@@ -75,30 +84,7 @@ export default function Navigation() {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+
                     </Box>
                     <LiveTvIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
@@ -134,33 +120,46 @@ export default function Navigation() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/assets/avata/avata.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                        {user?.displayName ? (
+                            <div>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        <Avatar alt={user.email} src={user.photoURL} />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center" ><Link to='/dashboard' style={{ textDecoration: "none" }}>Dashboard</Link></Typography>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Typography textAlign="center" onClick={handleSignOut}>Logout</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            </div>
+                        ) : (
+                            <Link to='/signin' style={{ textDecoration: "none" }} >
+                                <Button
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    Sign in
+                                </Button>
+                            </Link>
+                        )}
                     </Box>
                 </Toolbar>
             </Container>
